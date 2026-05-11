@@ -22,8 +22,8 @@ export function Header() {
             className="w-16 h-auto sm:w-20 md:w-24 shrink-0"
             priority
           />
-          <span className="brutalist-text text-xs sm:text-base md:text-lg lg:text-xl font-black leading-tight tracking-tight">
-            Sky rant tech
+          <span className="brutalist-text text-xs sm:text-base md:text-lg lg:text-xl font-black leading-tight tracking-tight whitespace-nowrap">
+            SKYRANT TECH
           </span>
         </a>
 

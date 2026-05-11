@@ -50,21 +50,36 @@ export async function POST(request: Request) {
     const safeEmail = escapeHtml(String(email));
     const safeMessage = escapeHtml(String(message));
 
-    // Send email to SKYRANT TECH
+    const notifyTo =
+      process.env.CONTACT_EMAIL || smtpUser;
+    const rawName = String(name).trim();
+    const rawEmail = String(email).trim();
+    const rawMessage = String(message).trim();
+    const textBody = [
+      'New contact form submission',
+      '',
+      `From (name): ${rawName}`,
+      `From (email): ${rawEmail}`,
+      '',
+      'Message:',
+      rawMessage,
+    ].join('\n');
+
     await transporter.sendMail({
       from: fromAddr,
-      to: process.env.CONTACT_EMAIL || 'skyranttt@gmail.com',
-      subject: `New Contact Form Submission from ${name}`,
+      to: notifyTo,
+      subject: `New Contact Form Submission from ${rawName}`,
+      replyTo: rawEmail,
+      text: textBody,
       html: `
         <div style="font-family: monospace; color: #333;">
           <h2>New Project Inquiry</h2>
-          <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>Email:</strong> ${safeEmail}</p>
-          <p><strong>Message:</strong></p>
-          <p style="white-space: pre-wrap;">${safeMessage}</p>
+          <p><strong>From (name):</strong> ${safeName}</p>
+          <p><strong>From (email):</strong> <a href="mailto:${encodeURIComponent(rawEmail)}">${safeEmail}</a></p>
+          <p><strong>Message from sender:</strong></p>
+          <p style="white-space: pre-wrap; border-left: 3px solid #333; padding-left: 12px; margin-top: 8px;">${safeMessage}</p>
         </div>
       `,
-      replyTo: email,
     });
 
     // Send confirmation email to user
