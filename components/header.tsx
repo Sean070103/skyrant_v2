@@ -7,23 +7,24 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="border-b-4 border-primary py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 bg-background border-b-4 border-primary py-3 sm:py-5 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3 flex-shrink-0 hover:opacity-80 transition">
+        <a
+          href="#"
+          className="flex items-center gap-2 sm:gap-3 min-w-0 hover:opacity-80 transition"
+        >
           <Image
             src="/main-logo.png"
             alt="SKYRANT TECH"
-            width={52}
-            height={52}
-            className="w-12 sm:w-14 h-auto"
+            width={96}
+            height={96}
+            className="w-16 h-auto sm:w-20 md:w-24 shrink-0"
+            priority
           />
-          <div className="hidden sm:block">
-            <h1 className="brutalist-text text-lg sm:text-xl lg:text-2xl font-black leading-none">
-              SKYRANT
-            </h1>
-            <p className="text-xs text-primary tracking-widest">TECH</p>
-          </div>
+          <span className="brutalist-text text-xs sm:text-base md:text-lg lg:text-xl font-black leading-tight tracking-tight">
+            Sky rant tech
+          </span>
         </a>
 
         {/* Desktop Navigation */}

@@ -29,15 +29,21 @@ export function Contact() {
         }),
       });
 
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+      };
+
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        throw new Error(data.error || 'Failed to send message');
       }
 
       setSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      setError('Failed to send message. Please try again.');
+      const msg =
+        err instanceof Error ? err.message : 'Failed to send message. Please try again.';
+      setError(msg);
       console.error('Contact form error:', err);
     } finally {
       setLoading(false);
